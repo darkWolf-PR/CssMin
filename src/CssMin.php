@@ -162,6 +162,7 @@ abstract class aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -384,9 +385,7 @@ abstract class aCssDeclarationToken extends aCssToken
      * @param string  $property    Property of the declaration
      * @param string  $value       Value of the declaration
      * @param boolean $isImportant Is the !important flag is set?
-     * @param boolean $IsLast      Is the declaration the last one of the block?
-     *
-     * @return void
+     * @param bool    $isLast
      */
     public function __construct($property, $value, $isImportant = false, $isLast = false)
     {
@@ -754,7 +753,7 @@ class CssUrlParserPlugin extends aCssParserPlugin
     /**
      * Implements {@link aCssParserPlugin::getTriggerStates()}.
      *
-     * @return array
+     * @return bool
      */
     public function getTriggerStates()
     {
@@ -767,6 +766,7 @@ class CssUrlParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -834,7 +834,7 @@ class CssStringParserPlugin extends aCssParserPlugin
     /**
      * Implements {@link aCssParserPlugin::getTriggerStates()}.
      *
-     * @return array
+     * @return bool
      */
     public function getTriggerStates()
     {
@@ -847,6 +847,7 @@ class CssStringParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -982,6 +983,9 @@ class CssSortRulesetPropertiesMinifierFilter extends aCssMinifierFilter
     /**
      * User defined sort function.
      *
+     * @param $a
+     * @param $b
+     *
      * @return integer
      */
     public static function userDefinedSort1($a, $b)
@@ -1080,6 +1084,7 @@ class CssRulesetParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -1563,7 +1568,7 @@ class CssParser
     /**
      * Returns a plugin by class name.
      *
-     * @param string $name Class name of the plugin
+     * @param $class
      *
      * @return aCssParserPlugin
      */
@@ -2030,7 +2035,7 @@ class CssMinifier
     /**
      * Returns a plugin by class name.
      *
-     * @param string $name Class name of the plugin
+     * @param $class
      *
      * @return aCssMinifierPlugin
      */
@@ -2521,7 +2526,7 @@ class CssExpressionParserPlugin extends aCssParserPlugin
     /**
      * Implements {@link aCssParserPlugin::getTriggerStates()}.
      *
-     * @return array
+     * @return bool
      */
     public function getTriggerStates()
     {
@@ -2534,6 +2539,7 @@ class CssExpressionParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -2605,10 +2611,11 @@ class CssError
     /**
      * Constructor triggering the error.
      *
+     * @param        $file
+     * @param        $line
      * @param string $message Error message
      * @param string $source  Corresponding line [optional]
      *
-     * @return void
      */
     public function __construct($file, $line, $message, $source = "")
     {
@@ -3881,7 +3888,7 @@ class CssCommentParserPlugin extends aCssParserPlugin
     /**
      * Implements {@link aCssParserPlugin::getTriggerStates()}.
      *
-     * @return array
+     * @return bool
      */
     public function getTriggerStates()
     {
@@ -3901,6 +3908,7 @@ class CssCommentParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4005,6 +4013,7 @@ class CssAtVariablesParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4187,6 +4196,7 @@ class CssAtPageParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4352,6 +4362,7 @@ class CssAtMediaParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4423,9 +4434,8 @@ class CssAtKeyframesStartToken extends aCssAtBlockStartToken
     /**
      * Sets the properties of the @page at-rule.
      *
-     * @param string $selector Selector
-     *
-     * @return void
+     * @param      $name
+     * @param null $atRuleName
      */
     public function __construct($name, $atRuleName = null)
     {
@@ -4578,6 +4588,7 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4791,6 +4802,7 @@ class CssAtImportParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -4894,6 +4906,7 @@ class CssAtFontFaceParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
@@ -5063,6 +5076,7 @@ class CssAtCharsetParserPlugin extends aCssParserPlugin
      * @param integer $index        Current index
      * @param string  $char         Current char
      * @param string  $previousChar Previous char
+     * @param         $state
      *
      * @return mixed TRUE will break the processing; FALSE continue with the next plugin; integer set a new index and break the processing
      */
