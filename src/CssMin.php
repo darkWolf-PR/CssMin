@@ -4297,6 +4297,8 @@ class CssAtPageDeclarationToken extends aCssDeclarationToken
  */
 class CssAtMediaStartToken extends aCssAtBlockStartToken
 {
+    public $MediaTypes = [];
+	
     /**
      * Sets the properties of the @media at-rule.
      *
